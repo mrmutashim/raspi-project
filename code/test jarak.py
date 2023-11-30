@@ -42,10 +42,11 @@ try:
     while True:
         # Hitung jarak lalu tampilkan ke serial monitor
         distance = measure_distance()
-        print("Jarak: %.1f cm" % distance)
+        min = 10
+        max = 20
 
         # Jika jarak kurang dari 20 cm, LED akan menyala
-        if distance < 20:
+        if distance < min or distance > max:
             GPIO.output(LED_PIN, True)
         else:
             GPIO.output(LED_PIN, False)
