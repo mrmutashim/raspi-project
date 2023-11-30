@@ -78,10 +78,10 @@ try:
         # Cek apakah jarak di luar rentang yang ditentukan
         if distance < rentang_min or distance > rentang_max:
             # Nyalakan LED jika jarak di luar rentang
-            GPIO.output(LED_PIN, GPIO.HIGH)
+            GPIO.output(LED_PIN, True)
         else:
             # Matikan LED jika jarak dalam rentang
-            GPIO.output(LED_PIN, GPIO.LOW)
+            GPIO.output(LED_PIN, False)
 
         time.sleep(0.1)
 
