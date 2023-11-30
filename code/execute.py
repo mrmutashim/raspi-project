@@ -24,9 +24,9 @@ video_config = picam2.create_video_configuration()
 picam2.configure(video_config)
 encoder = H264Encoder(10000000)
 picam2.start_recording(encoder, 'test.mp4')
-picam2.start_preview(Preview.QTGL)
+
 time.sleep(3600)
-picam2.stop_preview()
+
 picam2.stop_recording()
 
 # Inisialisasi GPIO
@@ -76,8 +76,8 @@ try:
         distance = measure_distance()
 
         # Tentukan rentang jarak yang diizinkan
-        rentang_min = 10
-        rentang_max = 100
+        rentang_min = 30
+        rentang_max = 40
 
         # Cek apakah jarak di luar rentang yang ditentukan
         if distance < rentang_min or distance > rentang_max:
