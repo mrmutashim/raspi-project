@@ -2,8 +2,9 @@ import RPi.GPIO as GPIO
 import time
 import os
 import Adafruit_DHT
-from picamera2 import Picamera2
+from picamera2 import Picamera2, Preview
 from picamera2.encoders import H264Encoder
+
 
 # Tentukan pin GPIO untuk sensor ultrasonik
 TRIG_PIN = 13
@@ -17,13 +18,17 @@ DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_PIN = 22
 
 #setting camera
+time.sleep(2)
 picam2 = Picamera2()
 video_config = picam2.create_video_configuration()
 picam2.configure(video_config)
 encoder = H264Encoder(10000000)
 picam2.start_recording(encoder, 'test.mp4')
+picam2.start_preview(Preview.QTGL)
 time.sleep(3600)
+picam2.stop_preview()
 picam2.stop_recording()
+
 # Inisialisasi GPIO
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(TRIG_PIN, GPIO.OUT)
