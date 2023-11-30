@@ -18,16 +18,11 @@ DHT_SENSOR = Adafruit_DHT.DHT22
 DHT_PIN = 22
 
 #setting camera
-time.sleep(2)
 picam2 = Picamera2()
 video_config = picam2.create_video_configuration()
 picam2.configure(video_config)
 encoder = H264Encoder(10000000)
-picam2.start_recording(encoder, 'test1.mp4')
 
-time.sleep(3600)
-
-picam2.stop_recording()
 
 # Inisialisasi GPIO
 GPIO.setmode(GPIO.BOARD)
@@ -63,9 +58,10 @@ try:
     f = open('./data-Temp/humidity1.csv', 'a+')
     if os.stat('./data-Temp/humidity1.csv').st_size == 0:
             f.write('Date,Time,Temperature,Humidity\r\n')
+    picam2.start_recording(encoder, 'test1.mp4')
+
+
     while True:
-
-
         # Baca suhu dan kelembaban dari sensor DHT22
         humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
         if humidity is not None and temperature is not None:
@@ -92,4 +88,5 @@ try:
 except KeyboardInterrupt:
     # Matikan GPIO dan keluar saat keyboard interrupt (Ctrl+C)
     GPIO.cleanup()
+    picam2.stop_recording()
 
