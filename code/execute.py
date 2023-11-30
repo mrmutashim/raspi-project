@@ -21,7 +21,9 @@ picam2 = Picamera2()
 video_config = picam2.create_video_configuration()
 picam2.configure(video_config)
 encoder = H264Encoder(10000000)
-
+picam2.start_recording(encoder, 'test.h264')
+time.sleep(60)
+picam2.stop_recording()
 # Inisialisasi GPIO
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(TRIG_PIN, GPIO.OUT)
@@ -57,11 +59,7 @@ try:
     if os.stat('./data-Temp/humidity.csv').st_size == 0:
             f.write('Date,Time,Temperature,Humidity\r\n')
     while True:
-        #delay
-        time.sleep(5)
 
-        #start camera
-        picam2.start_recording(encoder, 'test.h264')
 
         # Baca suhu dan kelembaban dari sensor DHT22
         humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
@@ -70,12 +68,10 @@ try:
         else:
             print("Failed to retrieve data from humidity sensor")
 
-        # Baca jarak
         distance = measure_distance()
-        print(f"Jarak: {distance} cm")
 
         # Tentukan rentang jarak yang diizinkan
-        rentang_min = 80
+        rentang_min = 10
         rentang_max = 100
 
         # Cek apakah jarak di luar rentang yang ditentukan
@@ -86,10 +82,6 @@ try:
             # Matikan LED jika jarak dalam rentang
             GPIO.output(LED_PIN, GPIO.LOW)
 
-        # Tunggu sebentar sebelum mengukur lagi
-        time.sleep(1)
-
 except KeyboardInterrupt:
     # Matikan GPIO dan keluar saat keyboard interrupt (Ctrl+C)
     GPIO.cleanup()
-    picam2.stop_recording()
