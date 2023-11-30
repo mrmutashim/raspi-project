@@ -85,3 +85,4 @@ try:
 except KeyboardInterrupt:
     # Matikan GPIO dan keluar saat keyboard interrupt (Ctrl+C)
     GPIO.cleanup()
+
