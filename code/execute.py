@@ -23,7 +23,7 @@ picam2 = Picamera2()
 video_config = picam2.create_video_configuration()
 picam2.configure(video_config)
 encoder = H264Encoder(10000000)
-picam2.start_recording(encoder, 'test.mp4')
+picam2.start_recording(encoder, 'test1.mp4')
 
 time.sleep(3600)
 
@@ -60,8 +60,8 @@ def measure_distance():
     return distance
 
 try:
-    f = open('./data-Temp/humidity.csv', 'a+')
-    if os.stat('./data-Temp/humidity.csv').st_size == 0:
+    f = open('./data-Temp/humidity1.csv', 'a+')
+    if os.stat('./data-Temp/humidity1.csv').st_size == 0:
             f.write('Date,Time,Temperature,Humidity\r\n')
     while True:
 
