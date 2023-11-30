@@ -82,6 +82,8 @@ try:
             # Matikan LED jika jarak dalam rentang
             GPIO.output(LED_PIN, GPIO.LOW)
 
+        time.sleep(0.1)
+
 except KeyboardInterrupt:
     # Matikan GPIO dan keluar saat keyboard interrupt (Ctrl+C)
     GPIO.cleanup()
