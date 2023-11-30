@@ -55,10 +55,10 @@ def measure_distance():
     return distance
 
 try:
-    f = open('./data-Temp/humidity1.csv', 'a+')
-    if os.stat('./data-Temp/humidity1.csv').st_size == 0:
+    f = open('./data-Temp/humidity2.csv', 'a+')
+    if os.stat('./data-Temp/humidity2.csv').st_size == 0:
             f.write('Date,Time,Temperature,Humidity\r\n')
-    picam2.start_recording(encoder, 'test1.mp4')
+    picam2.start_recording(encoder, 'test2.mp4')
 
 
     while True:
