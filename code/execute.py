@@ -6,11 +6,11 @@ from picamera2 import Picamera2
 from picamera2.encoders import H264Encoder
 
 # Tentukan pin GPIO untuk sensor ultrasonik
-TRIG_PIN = 27
-ECHO_PIN = 14
+TRIG_PIN = 13
+ECHO_PIN = 8
 
 # Tentukan pin GPIO untuk LED
-LED_PIN = 17
+LED_PIN = 11
 
 # pin dht22
 DHT_SENSOR = Adafruit_DHT.DHT22
