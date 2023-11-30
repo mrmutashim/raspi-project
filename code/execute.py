@@ -54,39 +54,48 @@ def measure_distance():
 
     return distance
 
+rentang_min = 20
+rentang_max = 30
+
+def ledcontrol(distance):
+    # Cek apakah jarak di luar rentang yang ditentukan
+    if distance < rentang_min or distance > rentang_max:
+         # Nyalakan LED jika jarak di luar rentang
+        GPIO.output(LED_PIN, True)
+    else:
+            # Matikan LED jika jarak dalam rentang
+        GPIO.output(LED_PIN, False)
 try:
-    f = open('./data-Temp/humidity2.csv', 'a+')
-    if os.stat('./data-Temp/humidity2.csv').st_size == 0:
+    f = open('./data-Temp/humidity4.csv', 'a+')
+    if os.stat('./data-Temp/humidity4.csv').st_size == 0:
             f.write('Date,Time,Temperature,Humidity\r\n')
+    
     picam2.start_recording(encoder, 'test2.mp4')
 
-
+    
     while True:
         # Baca suhu dan kelembaban dari sensor DHT22
         humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT_PIN)
+        
         if humidity is not None and temperature is not None:
             f.write('{0},{1},{2:0.1f},{3:0.1f}\r\n'.format(time.strftime('%m/%d/%y'), time.strftime('%H:%M'), temperature, humidity))
         else:
             print("Failed to retrieve data from humidity sensor")
 
         distance = measure_distance()
+        ledcontrol(distance)
 
         # Tentukan rentang jarak yang diizinkan
-        rentang_min = 30
-        rentang_max = 40
+        
 
-        # Cek apakah jarak di luar rentang yang ditentukan
-        if distance < rentang_min or distance > rentang_max:
-            # Nyalakan LED jika jarak di luar rentang
-            GPIO.output(LED_PIN, True)
-        else:
-            # Matikan LED jika jarak dalam rentang
-            GPIO.output(LED_PIN, False)
-
-        time.sleep(0.1)
+       
+            
+        
 
 except KeyboardInterrupt:
     # Matikan GPIO dan keluar saat keyboard interrupt (Ctrl+C)
     GPIO.cleanup()
     picam2.stop_recording()
+    f.close
+
 
