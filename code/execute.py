@@ -70,7 +70,7 @@ try:
     if os.stat('./data-Temp/humidity4.csv').st_size == 0:
             f.write('Date,Time,Temperature,Humidity\r\n')
     
-    picam2.start_recording(encoder, 'test2.mp4')
+    picam2.start_recording(encoder, 'record1.h264')
 
     
     while True:
@@ -86,11 +86,6 @@ try:
         ledcontrol(distance)
 
         # Tentukan rentang jarak yang diizinkan
-        
-
-       
-            
-        
 
 except KeyboardInterrupt:
     # Matikan GPIO dan keluar saat keyboard interrupt (Ctrl+C)
